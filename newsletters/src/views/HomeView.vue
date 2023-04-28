@@ -1,15 +1,17 @@
 <template>
-  <hello-world />
+  <FormularComponent />
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
+  // import HelloWorld from '../components/HelloWorld'
+  import FormularComponent from '../components/Formular.vue'
 
   export default {
     name: 'HomeView',
 
     components: {
-      HelloWorld,
+      // HelloWorld,
+      FormularComponent
     },
   }
 </script>
