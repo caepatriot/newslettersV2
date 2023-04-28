@@ -2,6 +2,11 @@
   <v-container>
     <v-card class="mx-auto" style="max-width: 80%">
       <v-form ref="form" v-model="form" class="pa-4 pt-6">
+        <v-img
+          src="https://picsum.photos/350/165?random"
+          height="125"
+          class="grey darken-4"
+        ></v-img>
         <v-text-field
           v-model="to"
           filled
@@ -27,20 +32,14 @@
           rows="10"
         ></v-textarea>
         <v-file-input show-size multiple label="File input"></v-file-input>
-        <v-text-field
-          v-model="phone"
-          filled
-          color="deep-purple"
-          label="Phone number"
-        ></v-text-field>
-        <v-text-field
+        <!-- <v-text-field
           v-model="email"
           :rules="[rules.email]"
           filled
           color="deep-purple"
           label="Email address"
           type="email"
-        ></v-text-field>
+        ></v-text-field> -->
         <!-- <v-checkbox
           v-model="agreement"
           :rules="[rules.required]"
@@ -58,8 +57,17 @@
       <v-card-actions>
         <v-btn text @click="$refs.form.reset()"> Clear </v-btn>
         <v-spacer></v-spacer>
-        <v-btn
+        <!-- <v-btn
           :disabled="form"
+          :loading="isLoading"
+          class="white--text"
+          color="deep-purple accent-4"
+          depressed
+          @click="loadFile()"
+        >
+          Submit
+        </v-btn> -->
+        <v-btn
           :loading="isLoading"
           class="white--text"
           color="deep-purple accent-4"
@@ -146,7 +154,10 @@ export default {
       const newsletter = {
         email: this.to,
         subject: this.subject,
-        body: '<!DOCTYPE html><html><head><title>Page Title</title></head><body><h1>' + this.body + '</h1></body></html>',
+        body:
+          "<!DOCTYPE html><html><head><title>Page Title</title></head><body><img src='https://picsum.photos/350/165?random'/><h1>" +
+          this.body +
+          "</h1></body></html>",
       };
 
       // var params = new URLSearchParams();
@@ -156,7 +167,7 @@ export default {
 
       axios
         .post("http://localhost:8081/sendmail", newsletter)
-        .then((response) => (console.log(response)));
+        .then((response) => console.log(response));
 
       // axios
       //   .get(`~/assets/templates/template1.html`)
