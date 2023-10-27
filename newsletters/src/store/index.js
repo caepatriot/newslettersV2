@@ -8,7 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     templates: [
-      { title: "Template 1", inputs: [], html: '<div data-v-6f685e67="" class="v-image v-responsive theme--light" style="height: 250px;"><div class="v-responsive__sizer" style="padding-bottom: 75%;"></div><div class="v-image__image v-image__image--cover" style="background-image: url(&quot;https://cdn.vuetifyjs.com/images/cards/cooking.png&quot;); background-position: center center;"></div><div class="v-responsive__content" style="width: 900px;"></div></div><div data-v-6f685e67="" class="v-card__title"></div><div data-v-6f685e67="" class="v-card__text"></div><hr data-v-6f685e67="" role="separator" aria-orientation="horizontal" class="mx-4 v-divider theme--light"><div data-v-6f685e67="" class="v-card__title"></div>' },
+      { title: "Template 1", inputs: [], html: '<div class="template-content"><v-card class="mx-auto my-12" max-width="374"><template slot="progress"><v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear></template><v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img><v-card-title>{{ title }}</v-card-title><v-card-text></v-card-text> <v-divider class="mx-4"></v-divider><v-card-title>{{ content }}</v-card-title></v-card> </div>'},
       { title: "Template 2", inputs: [], html: "" },
       { title: "Template 3", inputs: [], html: "" },
     ],
