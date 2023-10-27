@@ -5,6 +5,17 @@
         @input="$v.form.title.$touch()" @blur="$v.form.title.$touch()"></v-text-field>
       <v-textarea v-model="form.content" :error-messages="contentErrors" label="Content" required
         @input="$v.form.content.$touch()" @blur="$v.form.content.$touch()"></v-textarea>
+      <v-file-input multiple accept="image/*" label="Pièces"></v-file-input>
+      <v-text-field label="Lien"></v-text-field>
+      <v-text-field label="Contact"></v-text-field>
+      <v-text-field label="Répondre à"></v-text-field>
+      <v-text-field label="Emetteur"></v-text-field>
+
+      <v-checkbox
+      v-model="checkbox"
+      :label="`Checkbox 1: ${checkbox.toString()}`"
+    ></v-checkbox>
+
       <v-checkbox v-model="form.checkbox" :error-messages="checkboxErrors" label="Do you agree?" required
         @change="$v.form.checkbox.$touch()" @blur="$v.form.checkbox.$touch()"></v-checkbox>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <v-container>
+    <v-container fluid >
       <v-row>
         <v-col>
           <NewsForm @submitted="updatePreview($event)"></NewsForm>
