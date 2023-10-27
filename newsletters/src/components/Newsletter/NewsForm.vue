@@ -1,38 +1,20 @@
 <template>
   <v-container>
-    <validation-observer ref="observer" v-slot="{ invalid }">
-      <form @submit.prevent="submit">
-        <validation-provider v-slot="{ errors }" name="Name" rules="required|max:10">
-          <v-text-field v-model="name" :counter="10" :error-messages="errors" label="Name" required></v-text-field>
-        </validation-provider>
-        <validation-provider v-slot="{ errors }" name="phoneNumber" :rules="{
-          required: true,
-          digits: 7,
-          regex: '^(71|72|74|76|81|82|84|85|86|87|88|89)\\d{5}$'
-        }">
-          <v-text-field v-model="phoneNumber" :counter="7" :error-messages="errors" label="Phone Number"
-            required></v-text-field>
-        </validation-provider>
-        <validation-provider v-slot="{ errors }" name="email" rules="required|email">
-          <v-text-field v-model="email" :error-messages="errors" label="E-mail" required></v-text-field>
-        </validation-provider>
-        <validation-provider v-slot="{ errors }" name="select" rules="required">
-          <v-select v-model="select" :items="items" :error-messages="errors" label="Select" data-vv-name="select"
-            required></v-select>
-        </validation-provider>
-        <validation-provider v-slot="{ errors }" rules="required" name="checkbox">
-          <v-checkbox v-model="checkbox" :error-messages="errors" value="1" label="Option" type="checkbox"
-            required></v-checkbox>
-        </validation-provider>
+    <form>
+      <v-text-field v-model="form.title" :error-messages="titleErrors" :counter="30" label="Title" required
+        @input="$v.form.title.$touch()" @blur="$v.form.title.$touch()"></v-text-field>
+      <v-textarea v-model="form.content" :error-messages="contentErrors" label="Content" required
+        @input="$v.form.content.$touch()" @blur="$v.form.content.$touch()"></v-textarea>
+      <v-checkbox v-model="form.checkbox" :error-messages="checkboxErrors" label="Do you agree?" required
+        @change="$v.form.checkbox.$touch()" @blur="$v.form.checkbox.$touch()"></v-checkbox>
 
-        <v-btn class="mr-4" type="submit" :disabled="invalid">
-          submit
-        </v-btn>
-        <v-btn @click="clear">
-          clear
-        </v-btn>
-      </form>
-    </validation-observer>
+      <v-btn class="mr-4" @click="submit">
+        submit
+      </v-btn>
+      <v-btn @click="clear">
+        clear
+      </v-btn>
+    </form>
   </v-container>
 </template>
 
@@ -41,48 +23,49 @@
 <script>
 // import axios from "axios";
 
-import { required, digits, email, max, regex } from 'vee-validate/dist/rules'
-import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
+// import { required, digits, email, max, regex } from 'vee-validate/dist/rules'
+// import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
 
-setInteractionMode('eager')
-
-extend('digits', {
-  ...digits,
-  message: '{_field_} needs to be {length} digits. ({_value_})',
-})
-
-extend('required', {
-  ...required,
-  message: '{_field_} can not be empty',
-})
-
-extend('max', {
-  ...max,
-  message: '{_field_} may not be greater than {length} characters',
-})
-
-extend('regex', {
-  ...regex,
-  message: '{_field_} {_value_} does not match {regex}',
-})
-
-extend('email', {
-  ...email,
-  message: 'Email must be valid',
-})
+import { validationMixin } from 'vuelidate'
+import { required, maxLength, email } from 'vuelidate/lib/validators'
 
 export default {
   name: "NewsForm",
 
-  components: {
-    ValidationProvider,
-    ValidationObserver,
+  mixins: [validationMixin],
+
+  validations: {
+    form: {
+      title: { required, maxLength: maxLength(30) },
+      content: { required },
+      checkbox: {
+        checked(val) {
+          return val
+        },
+      },
+    },
+
+    title: { required, maxLength: maxLength(30) },
+    email: { required, email },
+    content: { required },
+    select: { required },
+    checkbox: {
+      checked(val) {
+        return val
+      },
+    },
   },
 
   data: () => ({
 
-    name: '',
-    phoneNumber: '',
+    form: {
+      title: '',
+      content: '',
+      checkbox: false,
+    },
+
+    title: '',
+    content: '',
     email: '',
     select: null,
     items: [
@@ -91,14 +74,43 @@ export default {
       'Item 3',
       'Item 4',
     ],
-    checkbox: null,
+    checkbox: false,
 
   }),
 
   computed: {
-    // newsletters() {
-    //   return this.$store.newsletters;
-    // },
+    checkboxErrors() {
+      const errors = []
+      if (!this.$v.form.checkbox.$dirty) return errors
+      !this.$v.form.checkbox.checked && errors.push('You must agree to continue!')
+      return errors
+    },
+    selectErrors() {
+      const errors = []
+      if (!this.$v.form.select.$dirty) return errors
+      !this.$v.form.select.required && errors.push('Item is required')
+      return errors
+    },
+    titleErrors() {
+      const errors = []
+      if (!this.$v.title.$dirty) return errors
+      !this.$v.form.title.maxLength && errors.push('Title must be at most 10 characters long')
+      !this.$v.form.title.required && errors.push('Title is required.')
+      return errors
+    },
+    contentErrors() {
+      const errors = []
+      if (!this.$v.content.$dirty) return errors
+      !this.$v.form.content.required && errors.push('Content is required.')
+      return errors
+    },
+    emailErrors() {
+      const errors = []
+      if (!this.$v.email.$dirty) return errors
+      !this.$v.form.email.email && errors.push('Must be valid e-mail')
+      !this.$v.form.email.required && errors.push('E-mail is required')
+      return errors
+    },
   },
 
   mounted() {
@@ -113,15 +125,17 @@ export default {
 
   methods: {
     submit() {
-      this.$refs.observer.validate()
+      this.$emit('submitted', this.form);
+      this.$v.$touch()
     },
     clear() {
+      this.$v.$reset()
       this.name = ''
-      this.phoneNumber = ''
+      this.title = ''
+      this.content = ''
       this.email = ''
       this.select = null
-      this.checkbox = null
-      this.$refs.observer.reset()
+      this.checkbox = false
     },
   },
 };
