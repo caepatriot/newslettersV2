@@ -1,21 +1,19 @@
 <template>
   <v-container>
-    <v-btn @click="test()"></v-btn>
-    <v-sheet class="mx-auto" elevation="8" max-width="500">
-      <v-slide-group v-model="model" class="pa-4" active-class="success" show-arrows>
-        <v-slide-item v-for="n in 15" :key="n" v-slot="{ active, toggle }">
-          <v-card :color="active ? undefined : 'grey lighten-1'" class="ma-4" height="100" width="100" @click="toggle">
-            <v-row class="fill-height" align="center" justify="center">
-              <v-scale-transition>
-                <v-icon v-if="active" color="white" size="48"></v-icon>
-              </v-scale-transition>
-            </v-row>
-          </v-card>
+    <!-- <v-btn @click="test()"></v-btn> -->
+    <v-sheet class="mx-auto" max-width="700">
+      <v-slide-group multiple show-arrows>
+        <v-slide-item v-for="n in $store.state.templates" :key="n.title" v-slot="{ active }">
+          <v-btn class="mx-2" :input-value="active" active-class="purple white--text" depressed rounded @click="loadTemplate(n)" >
+            {{ n.title }}
+          </v-btn>
         </v-slide-item>
       </v-slide-group>
     </v-sheet>
 
-    <TemplateComponent :title="form.title" :content="form.content"></TemplateComponent>
+    <div v-if="selectedTemplate != null" v-html="selectedTemplate.html"></div>
+
+    <!-- <TemplateComponent :title="form.title" :content="form.content"></TemplateComponent> -->
 
   </v-container>
 </template>
@@ -25,36 +23,40 @@
 <script>
 // import axios from "axios";
 
-import TemplateComponent from './Templates/TemplateComponent.vue';
+// import TemplateComponent from './Templates/TemplateComponent.vue';
 
 export default {
   name: "NewsPreview",
 
   components: {
-    TemplateComponent
+    // TemplateComponent
   },
 
   props: ['form'],
 
-  mounted: () => {
-    
-  },
-
   data: () => ({
     model: null,
-    // templates: $store.state.day
+    selectedTemplate: null
   }),
+
+  mounted: () => {
+  },
 
   computed: {
 
   },
 
   watch: {
+
   },
 
   methods: {
 
-    test(){
+    loadTemplate(template) {
+      this.selectedTemplate = template;
+    },
+
+    test() {
       console.log(this.$store.state.templates);
     }
 
