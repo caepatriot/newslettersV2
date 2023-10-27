@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <v-btn @click="test()"></v-btn>
     <v-sheet class="mx-auto" elevation="8" max-width="500">
       <v-slide-group v-model="model" class="pa-4" active-class="success" show-arrows>
         <v-slide-item v-for="n in 15" :key="n" v-slot="{ active, toggle }">
@@ -36,7 +37,7 @@ export default {
   props: ['form'],
 
   mounted: () => {
-    console.log(this.$store.state.templates);
+    
   },
 
   data: () => ({
@@ -52,6 +53,10 @@ export default {
   },
 
   methods: {
+
+    test(){
+      console.log(this.$store.state.templates);
+    }
 
   },
 };
