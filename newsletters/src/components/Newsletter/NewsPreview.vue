@@ -13,7 +13,9 @@
         </v-slide-item>
       </v-slide-group>
     </v-sheet>
+
     <TemplateComponent :title="form.title" :content="form.content"></TemplateComponent>
+
   </v-container>
 </template>
 
@@ -33,15 +35,17 @@ export default {
 
   props: ['form'],
 
+  mounted: () => {
+    console.log(this.$store.state.templates);
+  },
+
   data: () => ({
     model: null,
+    // templates: $store.state.day
   }),
 
   computed: {
 
-  },
-
-  mounted() {
   },
 
   watch: {
