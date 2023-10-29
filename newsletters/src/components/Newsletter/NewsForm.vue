@@ -18,11 +18,7 @@
         @input="$v.form.content.$touch()"
         @blur="$v.form.content.$touch()"
       ></v-textarea>
-      <v-file-input
-        multiple
-        accept="image/*"
-        label="Pièces"
-      ></v-file-input>
+      <v-file-input multiple accept="image/*" label="Pièces"></v-file-input>
       <!-- <v-text-field label="Lien"></v-text-field>
       <v-text-field label="Contact"></v-text-field>
       <v-text-field label="Répondre à"></v-text-field>
@@ -92,7 +88,7 @@ export default {
     form: {
       title: "",
       content: "",
-      image:"",
+      image: "",
       checkbox: false,
     },
   }),
@@ -139,9 +135,39 @@ export default {
   },
 
   watch: {
+    template: function (newVal, oldVal) {
+      // watch it
+      this.extractInputsFromHtml(newVal);
+      console.log(this.extractInputsFromHtml(newVal));
+      console.log("Prop changed: ", newVal, " | was: ", oldVal);
+    },
   },
 
   methods: {
+    extractInputsFromHtml(template) {
+      // const regex = /{{(.*?)}}/g;
+      // const placeholders = [];
+      // let match;
+
+      // while ((match = regex.exec(template.html)) !== null) {
+      //   placeholders.push(match[0]);
+      // }
+
+      // return placeholders;
+      let html = template.html;
+      const regex = /{{(.*?)}}/g;
+      const placeholdersWithValues = {};
+      let match;
+
+      while ((match = regex.exec(html)) !== null) {
+        const placeholder = match[0];
+        const placeholderKey = match[1].trim(); // Remove leading/trailing whitespace
+        placeholdersWithValues[placeholderKey] = placeholder;
+      }
+
+      return placeholdersWithValues;
+    },
+
     emitChange() {
       // this.$emit("submitted", this.form);
       this.$v.$touch();
