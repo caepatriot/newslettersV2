@@ -40,8 +40,6 @@ export default {
       template = template.replace("{{content}}", this.form.content);
       // template = template.replace("{{image}}", this.displayImage());
 
-      console.log(this.form.image);
-
       return template;
     },
   },

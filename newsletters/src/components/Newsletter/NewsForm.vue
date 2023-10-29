@@ -22,7 +22,6 @@
         multiple
         accept="image/*"
         label="Pièces"
-        @change="handleFileChange($event)"
       ></v-file-input>
       <!-- <v-text-field label="Lien"></v-text-field>
       <v-text-field label="Contact"></v-text-field>
@@ -43,7 +42,7 @@
         @blur="$v.form.checkbox.$touch()"
       ></v-checkbox>
 
-      <v-btn class="mr-4" @click="submit"> submit </v-btn>
+      <v-btn class="mr-4" @click="emitChange"> submit </v-btn>
       <v-btn @click="clear"> clear </v-btn>
     </form>
   </v-container>
@@ -96,13 +95,6 @@ export default {
       image:"",
       checkbox: false,
     },
-
-    title: "",
-    content: "",
-    email: "",
-    select: null,
-    items: ["Item 1", "Item 2", "Item 3", "Item 4"],
-    checkbox: false,
   }),
 
   computed: {
@@ -143,18 +135,15 @@ export default {
   },
 
   mounted() {
-    console.log(this.template);
+    this.$emit("submitted", this.form);
   },
 
   watch: {
-    // selectedTemplate: function (newValue) {
-    //   this.loadTemplate(newValue);
-    // },
   },
 
   methods: {
-    submit() {
-      this.$emit("submitted", this.form);
+    emitChange() {
+      // this.$emit("submitted", this.form);
       this.$v.$touch();
     },
     clear() {

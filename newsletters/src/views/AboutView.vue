@@ -25,7 +25,10 @@
       >
       <v-row>
         <v-col>
-          <NewsForm @submitted="updatePreview($event)" :template="selectedTemplate"></NewsForm>
+          <NewsForm
+            @submitted="updatePreview($event)"
+            :template="selectedTemplate"
+          ></NewsForm>
         </v-col>
         <v-col>
           <NewsPreview :form="form" :template="selectedTemplate"></NewsPreview>
