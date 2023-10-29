@@ -8,7 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     templates: [
-      { title: "Template 1", inputs: [], html: '<div class="template-content"><v-card class="mx-auto my-12" max-width="374"><template slot="progress"><v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear></template><v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img><v-card-title>{{ title }}</v-card-title><v-card-text></v-card-text> <v-divider class="mx-4"></v-divider><v-card-title>{{ content }}</v-card-title></v-card> </div>'},
+      { title: "Template 1", inputs: [], html: '<table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td align="center" bgcolor="#0073e6"><table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #0073e6;"><tr><td align="center" valign="top" style="padding: 40px 10px 40px 10px;"><img src="{{image}}" alt="Newsletter Image" width="300" height="200" style="display: block;"></td></tr></table></td></tr><tr><td align="center" bgcolor="#f8f8f8"><table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #f8f8f8;"><tr><td align="center" style="padding: 20px 0 30px 0;"><h1>{{title}}</h1></td></tr><tr><td align="left" style="padding: 0 20px 20px 20px;"><p>{{content}}</p></td></tr></table></td></tr></table>'},
       { title: "Template 2", inputs: [], html: "" },
       { title: "Template 3", inputs: [], html: "" },
     ],
