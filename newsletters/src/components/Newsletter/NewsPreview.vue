@@ -1,8 +1,6 @@
 <template>
   <v-container>
-
     <div v-if="template != null" v-html="customizedTemplate"></div>
-
   </v-container>
 </template>
 
@@ -19,35 +17,38 @@ export default {
     // TemplateComponent
   },
 
-  props: ["form", "template"],
+  props: ["template"],
 
   data: () => ({
     model: null,
-    // selectedTemplate: null,
-
-    userTitle: "", // User's title input
-    userContent: "", // User's content input
   }),
 
   mounted: () => {},
 
   computed: {
     customizedTemplate() {
-      // Replace placeholders or markers in the selected template with user input
-      let template = this.template.html;
+      let html = this.template.html;
+      let inputs = this.template.inputs;
 
-      template = template.replace("{{title}}", this.form.title);
-      template = template.replace("{{content}}", this.form.content);
-      // template = template.replace("{{image}}", this.displayImage());
+      inputs.forEach((input) => {
+        if (input.type == "text") {
+          html = html.replace("{{" + `${input.ref}` + "}}", input.data);
+        } else if (input.type == "image") {
+          html = html.replace("{{" + `${input.ref}` + "}}", input.data);
+        }
+      });
 
-      return template;
+      return html;
     },
   },
 
-  watch: {},
+  watch: {
+    // template: function (newVal, oldVal) {
+    //   // console.log("Prop changed: ", newVal, " | was: ", oldVal);
+    // },
+  },
 
   methods: {
-
   },
 };
 </script>

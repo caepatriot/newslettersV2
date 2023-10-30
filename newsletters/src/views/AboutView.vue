@@ -31,7 +31,7 @@
           ></NewsForm>
         </v-col>
         <v-col>
-          <NewsPreview :form="form" :template="selectedTemplate"></NewsPreview>
+          <NewsPreview :template="selectedTemplate"></NewsPreview>
         </v-col>
       </v-row>
     </v-container>

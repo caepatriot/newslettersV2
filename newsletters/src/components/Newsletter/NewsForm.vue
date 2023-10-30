@@ -1,7 +1,19 @@
 <template>
   <v-container>
-    <form>
+    <form v-if="template">
       <v-text-field
+        v-for="input in textInputs"
+        :key="input.id"
+        v-model="input.data"
+        :error-messages="titleErrors"
+        :counter="30"
+        :label="input.label"
+        required
+        @input="$v.form.title.$touch()"
+        @blur="$v.form.title.$touch()"
+      ></v-text-field>
+
+      <!-- <v-text-field
         v-model="form.title"
         :error-messages="titleErrors"
         :counter="30"
@@ -17,8 +29,8 @@
         required
         @input="$v.form.content.$touch()"
         @blur="$v.form.content.$touch()"
-      ></v-textarea>
-      <v-file-input multiple accept="image/*" label="Pièces"></v-file-input>
+      ></v-textarea> -->
+      <!-- <v-file-input multiple accept="image/*" label="Pièces"></v-file-input> -->
       <!-- <v-text-field label="Lien"></v-text-field>
       <v-text-field label="Contact"></v-text-field>
       <v-text-field label="Répondre à"></v-text-field>
@@ -29,17 +41,17 @@
       :label="`Checkbox 1: ${checkbox.toString()}`"
     ></v-checkbox> -->
 
-      <v-checkbox
+      <!-- <v-checkbox
         v-model="form.checkbox"
         :error-messages="checkboxErrors"
         label="Do you agree?"
         required
         @change="$v.form.checkbox.$touch()"
         @blur="$v.form.checkbox.$touch()"
-      ></v-checkbox>
+      ></v-checkbox> -->
 
-      <v-btn class="mr-4" @click="emitChange"> submit </v-btn>
-      <v-btn @click="clear"> clear </v-btn>
+      <!-- <v-btn class="mr-4" @click="emitChange"> submit </v-btn>
+      <v-btn @click="clear"> clear </v-btn> -->
     </form>
   </v-container>
 </template>
@@ -84,16 +96,17 @@ export default {
     },
   },
 
-  data: () => ({
-    form: {
-      title: "",
-      content: "",
-      image: "",
-      checkbox: false,
-    },
-  }),
+  data: () => ({}),
 
   computed: {
+    textInputs: function () {
+      return this.template.inputs.filter((i) => i.type === "text");
+    },
+
+    imageInputs: function () {
+      return this.template.inputs.filter((i) => i.type === "image");
+    },
+
     checkboxErrors() {
       const errors = [];
       if (!this.$v.form.checkbox.$dirty) return errors;
@@ -101,12 +114,14 @@ export default {
         errors.push("You must agree to continue!");
       return errors;
     },
+
     selectErrors() {
       const errors = [];
       if (!this.$v.form.select.$dirty) return errors;
       !this.$v.form.select.required && errors.push("Item is required");
       return errors;
     },
+
     titleErrors() {
       const errors = [];
       if (!this.$v.title.$dirty) return errors;
@@ -135,11 +150,11 @@ export default {
   },
 
   watch: {
-    template: function (newVal, oldVal) {
+    template: function (newVal) {
       // watch it
       this.extractInputsFromHtml(newVal);
-      console.log(this.extractInputsFromHtml(newVal));
-      console.log("Prop changed: ", newVal, " | was: ", oldVal);
+      // console.log(this.extractInputsFromHtml(newVal));
+      // console.log("Prop changed: ", newVal, " | was: ", oldVal);
     },
   },
 
