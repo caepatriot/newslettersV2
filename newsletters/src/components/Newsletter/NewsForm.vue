@@ -12,6 +12,12 @@
         @input="$v.form.title.$touch()"
         @blur="$v.form.title.$touch()"
       ></v-text-field>
+      <v-file-input
+        v-for="input in imageInputs"
+        :key="input.id"
+        :label="input.label"
+        v-model="input.data"
+      ></v-file-input>
 
       <!-- <v-text-field
         v-model="form.title"
