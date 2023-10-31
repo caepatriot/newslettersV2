@@ -45,9 +45,6 @@ export default {
   },
 
   watch: {
-    // selectedTemplate: function (newVal, oldVal) {
-    //   console.log("Prop changed: ", newVal, " | was: ", oldVal);
-    // },
   },
 
   methods: {
