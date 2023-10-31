@@ -50,6 +50,10 @@ export default new Vuex.Store({
           },
         ],
         html: '<table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td align="center" bgcolor="#0073e6"><table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #0073e6;"><tr><td align="center" valign="top" style="padding: 40px 10px 40px 10px;"><img src="{{image_1}}" alt="Newsletter Image" width="300" height="200" style="display: block;"/><img src="{{image_2}}" alt="Newsletter Image" width="300" height="200" style="display: block;"/></td></tr></table></td></tr><tr><td align="center" bgcolor="#f8f8f8"><table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #f8f8f8;"><tr><td align="center" style="padding: 20px 0 30px 0;"><h1>{{title}}</h1></td></tr><tr><td align="left" style="padding: 0 20px 20px 20px;"><p>{{content}}</p></td></tr><tr><td>{{footer}}</td></tr></table></td></tr></table>',
+        css: {
+          border: "1px solid red",
+          color: "red",
+        },
       },
       {
         title: "Template 2",

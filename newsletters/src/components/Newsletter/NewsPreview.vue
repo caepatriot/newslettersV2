@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-btn v-if="template != null" @click="generateHTML()">Generate HTML</v-btn>
-    <div id="html-template" v-if="template != null" v-html="customizedTemplate"></div>
+    <div id="html-template" :style="template.css" v-if="template != null" v-html="customizedTemplate"></div>
   </v-container>
 </template>
 
