@@ -1,11 +1,11 @@
 <template>
   <v-container>
     <v-btn v-if="template != null" @click="generateHTML()">Generate HTML</v-btn>
-    <div id="html-template" :style="template.css" v-if="template != null" v-html="customizedTemplate"></div>
+    <div id="html-template" v-if="template != null" v-html="customizedTemplate"></div>
   </v-container>
 </template>
 
-<style lang="scss" scoped></style>
+
 
 <script>
 // import axios from "axios";
@@ -34,6 +34,8 @@ export default {
 
       inputs.forEach((input) => {
         if (input.type == "text") {
+          html = html.replace("{{" + `${input.ref}` + "}}", input.data);
+        } else if (input.type == "area") {
           html = html.replace("{{" + `${input.ref}` + "}}", input.data);
         } else if (input.type == "image") {
           html = html.replace("{{" + `${input.ref}` + "}}", input.fileUrl);

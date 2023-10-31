@@ -4,6 +4,8 @@
       <v-text-field v-for="input in textInputs" :key="input.id" v-model="input.data" :error-messages="titleErrors"
         :counter="30" :label="input.label" required @input="$v.form.title.$touch()"
         @blur="$v.form.title.$touch()"></v-text-field>
+      <v-textarea v-for="input in areaInputs" :key="input.id" v-model="input.data" :error-messages="contentErrors" label="Content" required
+        @input="$v.form.content.$touch()" @blur="$v.form.content.$touch()"></v-textarea>
       <v-file-input v-for="(input, index) in imageInputs" :key="input.title" @change="onFileChange(input.file, index)"
         v-model="input.file"></v-file-input>
 
@@ -96,6 +98,10 @@ export default {
   computed: {
     textInputs: function () {
       return this.template.inputs.filter((i) => i.type === "text");
+    },
+
+    areaInputs: function () {
+      return this.template.inputs.filter((i) => i.type === "area");
     },
 
     imageInputs: function () {
