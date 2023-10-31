@@ -4,10 +4,8 @@
       <v-text-field v-for="input in textInputs" :key="input.id" v-model="input.data" :error-messages="titleErrors"
         :counter="30" :label="input.label" required @input="$v.form.title.$touch()"
         @blur="$v.form.title.$touch()"></v-text-field>
-      <div v-for="(input, index) in imageInputs" :key="index">
-        <v-file-input v-for="(input, index) in imageInputs" :key="index" @change="onFileChange(input.file, index)"
-          v-model="input.file"></v-file-input>
-      </div>
+      <v-file-input v-for="(input, index) in imageInputs" :key="index" @change="onFileChange(input.file, index)"
+        v-model="input.file"></v-file-input>
 
 
       <!-- <v-text-field
@@ -150,30 +148,16 @@ export default {
     template: function (newVal) {
       // watch it
       this.extractInputsFromHtml(newVal);
-      // console.log(this.extractInputsFromHtml(newVal));
-      // console.log("Prop changed: ", newVal, " | was: ", oldVal);
     },
   },
 
   methods: {
 
     onFileChange(file, index) {
-      // console.log(file);
-      // console.log(index);
-      // console.log(URL.createObjectURL(file));
-      console.log(this.imageInputs[index].file);
       this.imageInputs[index].fileUrl = URL.createObjectURL(file);
     },
 
     extractInputsFromHtml(template) {
-      // const regex = /{{(.*?)}}/g;
-      // const placeholders = [];
-      // let match;
-
-      // while ((match = regex.exec(template.html)) !== null) {
-      //   placeholders.push(match[0]);
-      // }
-
       // return placeholders;
       let html = template.html;
       const regex = /{{(.*?)}}/g;
