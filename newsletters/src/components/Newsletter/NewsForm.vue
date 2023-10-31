@@ -1,23 +1,14 @@
 <template>
   <v-container>
     <form v-if="template">
-      <v-text-field
-        v-for="input in textInputs"
-        :key="input.id"
-        v-model="input.data"
-        :error-messages="titleErrors"
-        :counter="30"
-        :label="input.label"
-        required
-        @input="$v.form.title.$touch()"
-        @blur="$v.form.title.$touch()"
-      ></v-text-field>
-      <v-file-input
-        v-for="input in imageInputs"
-        :key="input.id"
-        :label="input.label"
-        v-model="input.data"
-      ></v-file-input>
+      <v-text-field v-for="input in textInputs" :key="input.id" v-model="input.data" :error-messages="titleErrors"
+        :counter="30" :label="input.label" required @input="$v.form.title.$touch()"
+        @blur="$v.form.title.$touch()"></v-text-field>
+      <div v-for="(input, index) in imageInputs" :key="index">
+        <v-file-input v-for="(input, index) in imageInputs" :key="index" @change="onFileChange(input.file, index)"
+          v-model="input.file"></v-file-input>
+      </div>
+
 
       <!-- <v-text-field
         v-model="form.title"
@@ -165,6 +156,15 @@ export default {
   },
 
   methods: {
+
+    onFileChange(file, index) {
+      // console.log(file);
+      // console.log(index);
+      // console.log(URL.createObjectURL(file));
+      console.log(this.imageInputs[index].file);
+      this.imageInputs[index].fileUrl = URL.createObjectURL(file);
+    },
+
     extractInputsFromHtml(template) {
       // const regex = /{{(.*?)}}/g;
       // const placeholders = [];

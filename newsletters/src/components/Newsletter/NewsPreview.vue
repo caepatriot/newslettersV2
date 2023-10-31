@@ -23,7 +23,7 @@ export default {
     model: null,
   }),
 
-  mounted: () => {},
+  mounted: () => { },
 
   computed: {
     customizedTemplate() {
@@ -34,7 +34,7 @@ export default {
         if (input.type == "text") {
           html = html.replace("{{" + `${input.ref}` + "}}", input.data);
         } else if (input.type == "image") {
-          html = html.replace("{{" + `${input.ref}` + "}}", input.data);
+          html = html.replace("{{" + `${input.ref}` + "}}", input.fileUrl);
         }
       });
 
@@ -43,8 +43,8 @@ export default {
   },
 
   watch: {
-    // template: function (newVal, oldVal) {
-    //   // console.log("Prop changed: ", newVal, " | was: ", oldVal);
+    // selectedTemplate: function (newVal, oldVal) {
+    //   console.log("Prop changed: ", newVal, " | was: ", oldVal);
     // },
   },
 
