@@ -62,7 +62,6 @@ export default {
       } else {
         this.extractedHtml = 'Element not found.';
       }
-      console.log(this.extractedHtml);
     },
   },
 };
