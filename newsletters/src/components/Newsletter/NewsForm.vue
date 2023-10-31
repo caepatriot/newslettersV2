@@ -4,7 +4,7 @@
       <v-text-field v-for="input in textInputs" :key="input.id" v-model="input.data" :error-messages="titleErrors"
         :counter="30" :label="input.label" required @input="$v.form.title.$touch()"
         @blur="$v.form.title.$touch()"></v-text-field>
-      <v-file-input v-for="(input, index) in imageInputs" :key="index" @change="onFileChange(input.file, index)"
+      <v-file-input v-for="(input, index) in imageInputs" :key="input.title" @change="onFileChange(input.file, index)"
         v-model="input.file"></v-file-input>
 
 

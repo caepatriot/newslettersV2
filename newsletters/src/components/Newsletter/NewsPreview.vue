@@ -1,6 +1,7 @@
 <template>
   <v-container>
-    <div v-if="template != null" v-html="customizedTemplate"></div>
+    <v-btn v-if="template != null" @click="generateHTML()">Generate HTML</v-btn>
+    <div id="html-template" v-if="template != null" v-html="customizedTemplate"></div>
   </v-container>
 </template>
 
@@ -21,6 +22,7 @@ export default {
 
   data: () => ({
     model: null,
+    extractedHtml: ''
   }),
 
   mounted: () => { },
@@ -49,6 +51,20 @@ export default {
   },
 
   methods: {
+
+    generateHTML() {
+      // Replace this with your logic to extract the HTML
+      // You can use document.getElementById or other DOM methods to get the desired element
+      const extractedElement = document.getElementById('html-template');
+
+      if (extractedElement) {
+        // Get the HTML content from the element
+        this.extractedHtml = extractedElement.outerHTML;
+      } else {
+        this.extractedHtml = 'Element not found.';
+      }
+      console.log(this.extractedHtml);
+    },
   },
 };
 </script>
