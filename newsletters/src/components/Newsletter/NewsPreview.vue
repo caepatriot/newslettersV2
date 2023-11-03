@@ -5,7 +5,12 @@
   </v-container>
 </template>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.selected {
+  border: 2px solid red !important;
+  background-color: blue;
+}
+</style>
 
 
 <script>
@@ -36,10 +41,15 @@ export default {
       inputs.forEach((input) => {
         if (input.type == "text") {
           html = html.replace("{{" + `${input.ref}` + "}}", input.data);
+          html = html.replace("ref=\"" + `${input.ref}` + "\"", "ref=\"" + `${input.ref}` + "\"");
         } else if (input.type == "area") {
           html = html.replace("{{" + `${input.ref}` + "}}", input.data);
+          html = html.replace("ref=\"" + `${input.ref}` + "\"", "ref=\"" + `${input.ref}` + "\"");
+
         } else if (input.type == "image") {
           html = html.replace("{{" + `${input.ref}` + "}}", input.fileUrl);
+          html = html.replace("ref=\"" + `${input.ref}` + "\"", "ref=\"" + `${input.ref}` + "\"");
+
         }
       });
 
@@ -63,11 +73,23 @@ export default {
     scrollToInput(input) {
 
       var ref = input.ref;
-      this.editing = !this.editing;
       this.$nextTick(() => {
+
+        // const element = document.querySelector('[ref="' + ref + '"]');
+        // if (element) {
+        //   // const y = element.getBoundingClientRect().top + window.scrollY + "10px";
+        //   // window.scrollTo({ top: y, behavior: 'smooth' });
+        //   // element.scrollIntoView();
+        //   element.classList.toggle("selected");
+        // } else {
+        //   console.log('Element not found.');
+        // }
+
         if (ref) {
           console.log(ref);
           console.log(this.$refs);
+
+
           // this.$refs.ref.focus();
         }
       });
