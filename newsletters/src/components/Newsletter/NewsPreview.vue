@@ -1,10 +1,11 @@
 <template>
   <v-container>
     <v-btn v-if="template != null" @click="generateHTML()">Generate HTML</v-btn>
-    <div id="html-template" v-if="template != null" v-html="customizedTemplate"></div>
+    <div v-if="template != null" v-html="customizedTemplate"></div>
   </v-container>
 </template>
 
+<style lang="css" scoped></style>
 
 
 <script>
@@ -47,9 +48,19 @@ export default {
   },
 
   watch: {
+    template: {
+      handler(newVal) {
+        this.scrollToInput(newVal);
+      },
+      deep: true
+    },
   },
 
   methods: {
+
+    scrollToInput(input) {
+      console.log(input);
+    },
 
     generateHTML() {
       // Replace this with your logic to extract the HTML

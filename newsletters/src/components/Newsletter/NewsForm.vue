@@ -1,13 +1,28 @@
 <template>
   <v-container>
     <form v-if="template">
-      <v-text-field v-for="input in textInputs" :key="input.id" v-model="input.data" :error-messages="titleErrors"
+
+      <div v-for="(input) in template.inputs" :key="input.id">
+
+        <v-text-field v-if="isTextInput(input)" v-model="input.data" :error-messages="titleErrors" :counter="30"
+          :label="input.label" required @input="$v.form.title.$touch()" @blur="$v.form.title.$touch()"
+          @click="highlightInput(input)"></v-text-field>
+
+        <v-textarea v-else-if="isTextArea(input)" v-model="input.data" :error-messages="contentErrors" label="Content"
+          required @input="$v.form.content.$touch()" @blur="$v.form.content.$touch()" @click="highlightInput(input)"></v-textarea>
+
+        <v-file-input v-else-if="isImageInput(input)" @change="onFileChange(input, input.file)"
+          v-model="input.file" @click="highlightInput(input)"></v-file-input>
+
+      </div>
+
+      <!-- <v-text-field v-for="input in textInputs" :key="input.id" v-model="input.data" :error-messages="titleErrors"
         :counter="30" :label="input.label" required @input="$v.form.title.$touch()"
         @blur="$v.form.title.$touch()"></v-text-field>
       <v-textarea v-for="input in areaInputs" :key="input.id" v-model="input.data" :error-messages="contentErrors" label="Content" required
         @input="$v.form.content.$touch()" @blur="$v.form.content.$touch()"></v-textarea>
       <v-file-input v-for="(input, index) in imageInputs" :key="input.title" @change="onFileChange(input.file, index)"
-        v-model="input.file"></v-file-input>
+        v-model="input.file"></v-file-input> -->
 
 
       <!-- <v-text-field
@@ -159,8 +174,25 @@ export default {
 
   methods: {
 
-    onFileChange(file, index) {
-      this.imageInputs[index].fileUrl = URL.createObjectURL(file);
+    highlightInput(input) {
+      this.$emit("selectedInput", input) ;
+    },
+
+    isTextInput(input) {
+      return input.type === "text";
+    },
+
+    isTextArea(input) {
+      return input.type === "area";
+    },
+
+    isImageInput(input) {
+      return input.type === "image";
+    },
+
+
+    onFileChange(input, file) {
+      (file != null) ? input.fileUrl = URL.createObjectURL(file) : input.fileUrl = "";
     },
 
     extractInputsFromHtml(template) {

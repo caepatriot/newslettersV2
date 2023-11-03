@@ -14,10 +14,11 @@
         </v-sheet></v-row>
       <v-row>
         <v-col>
-          <NewsForm id="form-container" @submitted="updatePreview($event)" :template="selectedTemplate"></NewsForm>
+          <NewsForm id="form-container" @selectedInput="updateSelectedInput($event)" @submitted="updatePreview($event)"
+            :template="selectedTemplate"></NewsForm>
         </v-col>
         <v-col>
-          <NewsPreview :template="selectedTemplate"></NewsPreview>
+          <NewsPreview id="preview-container" :template="selectedTemplate"></NewsPreview>
         </v-col>
       </v-row>
     </v-container>
@@ -26,6 +27,11 @@
 
 <style scoped>
 #form-container {
+  position: sticky;
+  top: 65px;
+}
+
+#preview-container {
   position: sticky;
   top: 65px;
 }
@@ -56,6 +62,10 @@ export default {
     updatePreview(e) {
       this.form = e;
     },
+
+    updateSelectedInput(e) {
+      this.selectedTemplate.selectedInput = e;
+    }
   },
 };
 </script>
