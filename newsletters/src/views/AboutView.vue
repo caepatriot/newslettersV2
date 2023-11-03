@@ -32,8 +32,8 @@
 }
 
 #preview-container {
-  position: sticky;
-  top: 65px;
+  /* position: sticky;
+  top: 65px; */
 }
 </style>
 

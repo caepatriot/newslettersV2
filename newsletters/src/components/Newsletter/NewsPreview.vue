@@ -50,7 +50,9 @@ export default {
   watch: {
     template: {
       handler(newVal) {
-        this.scrollToInput(newVal);
+        if (newVal.selectedInput != null) {
+          this.scrollToInput(newVal.selectedInput);
+        }
       },
       deep: true
     },
@@ -59,7 +61,43 @@ export default {
   methods: {
 
     scrollToInput(input) {
-      console.log(input);
+
+      var ref = input.ref;
+      this.editing = !this.editing;
+      this.$nextTick(() => {
+        if (ref) {
+          console.log(ref);
+          console.log(this.$refs);
+          // this.$refs.ref.focus();
+        }
+      });
+
+
+      // this.$nextTick(() => {
+      //   var ref = input.ref;
+
+      //   console.log(ref);
+      //   console.log(this.$refs);
+      //   // this.$refs[ref].scrollIntoView({ behavior: 'smooth' });
+
+      //   // Use $refs to access the dynamically loaded element
+      //   const element = this.$refs[ref];
+      //   if (element) {
+      //     console.log('Dynamically loaded element:', element);
+      //     // You can now manipulate the element or perform other actions.
+      //   } else {
+      //     console.log('Element not found.');
+      //   }
+      // })
+
+      // var targetRef = input.ref;
+      // console.log(this.$refs);
+      // if (targetRef != null) {
+      //   // this.$refs.targetRef.scrollIntoView({ behavior: 'smooth' });
+
+      //   // document.getElementById("${targetRef}`").scrollIntoView();
+      // }
+
     },
 
     generateHTML() {
