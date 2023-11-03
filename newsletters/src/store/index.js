@@ -166,6 +166,7 @@ export default new Vuex.Store({
           {
             id: 1,
             type: "image",
+            width: 50,
             ref: "image_1",
             label: "Image 1",
             file: [],
@@ -189,6 +190,7 @@ export default new Vuex.Store({
           {
             id: 4,
             type: "image",
+            width: 50,
             ref: "image_2",
             label: "Image 2",
             file: [],
@@ -227,6 +229,7 @@ export default new Vuex.Store({
           {
             id: 9,
             type: "image",
+            width: 50,
             ref: "image_3",
             label: "Image 3",
             file: [],
@@ -235,6 +238,7 @@ export default new Vuex.Store({
           {
             id: 10,
             type: "image",
+            width: 50,
             ref: "image_4",
             label: "Logo 1",
             file: [],
@@ -243,6 +247,7 @@ export default new Vuex.Store({
           {
             id: 11,
             type: "image",
+            width: 50,
             ref: "image_5",
             label: "Logo 2",
             file: [],
@@ -251,6 +256,7 @@ export default new Vuex.Store({
           {
             id: 12,
             type: "image",
+            width: 50,
             ref: "image_6",
             label: "Logo 3",
             file: [],
@@ -259,6 +265,7 @@ export default new Vuex.Store({
           {
             id: 13,
             type: "image",
+            width: 50,
             ref: "image_7",
             label: "Logo 4",
             file: [],

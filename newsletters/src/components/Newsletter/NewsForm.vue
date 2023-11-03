@@ -13,8 +13,8 @@
                   @click="highlightInput(input)"></v-text-field>
               </v-col>
               <v-col>
-                <v-text-field v-model="input.url" :error-messages="titleErrors" :counter="30" label="Url"
-                  required @input="$v.form.title.$touch()" @blur="$v.form.title.$touch()"
+                <v-text-field v-model="input.url" :error-messages="titleErrors" :counter="30" label="Url" required
+                  @input="$v.form.title.$touch()" @blur="$v.form.title.$touch()"
                   @click="highlightInput(input)"></v-text-field>
               </v-col>
             </v-row>
@@ -24,8 +24,19 @@
           required @input="$v.form.content.$touch()" @blur="$v.form.content.$touch()"
           @click="highlightInput(input)"></v-textarea>
 
-        <v-file-input v-else-if="isImageInput(input)" @change="onFileChange(input, input.file)" v-model="input.file"
-          @click="highlightInput(input)"></v-file-input>
+        <div v-else-if="isImageInput(input)">
+          <v-container>
+            <v-row>
+              <v-col>
+                <v-file-input @change="onFileChange(input, input.file)" v-model="input.file"
+                  @click="highlightInput(input)"></v-file-input>
+              </v-col>
+              <v-col>
+                <v-slider v-model="input.width" hint="Size" max="100" min="20"></v-slider>
+              </v-col>
+            </v-row>
+          </v-container>
+        </div>
 
       </div>
 
