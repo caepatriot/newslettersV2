@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-btn v-if="template != null" @click="generateHTML()">Generate HTML</v-btn>
-    <div v-if="template != null" v-html="customizedTemplate"></div>
+    <div id="template" v-if="template != null" v-html="customizedTemplate"></div>
   </v-container>
 </template>
 
@@ -9,6 +9,10 @@
 .selected {
   border: 2px solid red !important;
   background-color: blue;
+}
+
+#template>>>.selected {
+  border: 2px solid red;
 }
 </style>
 
@@ -39,17 +43,13 @@ export default {
       let inputs = this.template.inputs;
 
       inputs.forEach((input) => {
-        if (input.type == "text") {
-          html = html.replace("{{" + `${input.ref}` + "}}", input.data);
-          html = html.replace("ref=\"" + `${input.ref}` + "\"", "ref=\"" + `${input.ref}` + "\"");
+        if (input.type == "link") {
+          html = html.replace("{{" + `${input.ref}` + "}}", input.title);
+          html = html.replace("href=\"\"", "href=\"" + input.url + "\"");
         } else if (input.type == "area") {
           html = html.replace("{{" + `${input.ref}` + "}}", input.data);
-          html = html.replace("ref=\"" + `${input.ref}` + "\"", "ref=\"" + `${input.ref}` + "\"");
-
         } else if (input.type == "image") {
           html = html.replace("{{" + `${input.ref}` + "}}", input.fileUrl);
-          html = html.replace("ref=\"" + `${input.ref}` + "\"", "ref=\"" + `${input.ref}` + "\"");
-
         }
       });
 
@@ -75,23 +75,27 @@ export default {
       var ref = input.ref;
       this.$nextTick(() => {
 
-        // const element = document.querySelector('[ref="' + ref + '"]');
-        // if (element) {
-        //   // const y = element.getBoundingClientRect().top + window.scrollY + "10px";
-        //   // window.scrollTo({ top: y, behavior: 'smooth' });
-        //   // element.scrollIntoView();
-        //   element.classList.toggle("selected");
-        // } else {
-        //   console.log('Element not found.');
-        // }
-
-        if (ref) {
-          console.log(ref);
-          console.log(this.$refs);
-
-
-          // this.$refs.ref.focus();
+        const element = document.querySelector('[ref="' + ref + '"]').closest("table");
+        if (element) {
+          const allelements = document.querySelectorAll('*');
+          allelements.forEach((element) => {
+            element.classList.remove('selected');
+          });
+            element.classList.add("selected");
+          // const y = element.getBoundingClientRect().top + window.scrollY + "10px";
+          // window.scrollTo({ top: y, behavior: 'smooth' });
+          // element.scrollIntoView();
+        } else {
+          console.log('Element not found.');
         }
+
+        // if (ref) {
+        //   console.log(ref);
+        //   console.log(this.$refs);
+
+
+        // this.$refs.ref.focus();
+        // }
       });
 
 

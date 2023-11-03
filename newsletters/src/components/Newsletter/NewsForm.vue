@@ -4,15 +4,28 @@
 
       <div v-for="(input) in template.inputs" :key="input.id">
 
-        <v-text-field v-if="isTextInput(input)" v-model="input.data" :error-messages="titleErrors" :counter="30"
-          :label="input.label" required @input="$v.form.title.$touch()" @blur="$v.form.title.$touch()"
-          @click="highlightInput(input)"></v-text-field>
-
+        <div v-if="isLinkInput(input)">
+          <v-container>
+            <v-row>
+              <v-col>
+                <v-text-field v-model="input.title" :error-messages="titleErrors" :counter="30" :label="input.label"
+                  required @input="$v.form.title.$touch()" @blur="$v.form.title.$touch()"
+                  @click="highlightInput(input)"></v-text-field>
+              </v-col>
+              <v-col>
+                <v-text-field v-model="input.url" :error-messages="titleErrors" :counter="30" label="Url"
+                  required @input="$v.form.title.$touch()" @blur="$v.form.title.$touch()"
+                  @click="highlightInput(input)"></v-text-field>
+              </v-col>
+            </v-row>
+          </v-container>
+        </div>
         <v-textarea v-else-if="isTextArea(input)" v-model="input.data" :error-messages="contentErrors" label="Content"
-          required @input="$v.form.content.$touch()" @blur="$v.form.content.$touch()" @click="highlightInput(input)"></v-textarea>
+          required @input="$v.form.content.$touch()" @blur="$v.form.content.$touch()"
+          @click="highlightInput(input)"></v-textarea>
 
-        <v-file-input v-else-if="isImageInput(input)" @change="onFileChange(input, input.file)"
-          v-model="input.file" @click="highlightInput(input)"></v-file-input>
+        <v-file-input v-else-if="isImageInput(input)" @change="onFileChange(input, input.file)" v-model="input.file"
+          @click="highlightInput(input)"></v-file-input>
 
       </div>
 
@@ -175,11 +188,11 @@ export default {
   methods: {
 
     highlightInput(input) {
-      this.$emit("selectedInput", input) ;
+      this.$emit("selectedInput", input);
     },
 
-    isTextInput(input) {
-      return input.type === "text";
+    isLinkInput(input) {
+      return input.type === "link";
     },
 
     isTextArea(input) {

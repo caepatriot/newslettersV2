@@ -72,10 +72,11 @@ export default new Vuex.Store({
           },
           {
             id: 3,
-            type: "text",
+            type: "link",
             ref: "link_1",
             label: "Lien 1",
-            data: "",
+            title: "",
+            url: "",
           },
           {
             id: 4,
@@ -94,10 +95,11 @@ export default new Vuex.Store({
           },
           {
             id: 6,
-            type: "text",
+            type: "link",
             ref: "link_2",
             label: "Lien 2",
-            data: "",
+            title: "",
+            url: "",
           },
           {
             id: 7,
@@ -108,10 +110,11 @@ export default new Vuex.Store({
           },
           {
             id: 8,
-            type: "text",
+            type: "link",
             ref: "link_3",
             label: "Lien 3",
-            data: "",
+            title: "",
+            url: "",
           },
           {
             id: 9,
@@ -177,10 +180,11 @@ export default new Vuex.Store({
           },
           {
             id: 3,
-            type: "text",
+            type: "link",
             ref: "link_1",
             label: "Lien 1",
-            data: "",
+            title: "",
+            url: "",
           },
           {
             id: 4,
@@ -199,10 +203,11 @@ export default new Vuex.Store({
           },
           {
             id: 6,
-            type: "text",
+            type: "link",
             ref: "link_2",
             label: "Lien 2",
-            data: "",
+            title: "",
+            url: "",
           },
           {
             id: 7,
@@ -213,10 +218,11 @@ export default new Vuex.Store({
           },
           {
             id: 8,
-            type: "text",
+            type: "link",
             ref: "link_3",
             label: "Lien 3",
-            data: "",
+            title: "",
+            url: "",
           },
           {
             id: 9,
@@ -259,7 +265,7 @@ export default new Vuex.Store({
             fileUrl: "",
           },
         ],
-        html: '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td><img src="https://placehold.co/100x50" alt="Company Logo"></td></tr><tr><td><table  width="100%" cellpadding="10px" cellspacing="0" border="0" bgcolor="#ffffff" align="center"><tr><td align="center"> <img style="width:50%;" ref="image_1" id="{{id_image_1}}" src="{{image_1}}" alt="Company Logo"></td></tr><tr><td align="center" width="50%">  <p ref="p_1">{{p_1}}</p> </td></tr><tr><td align="center"> <a href="" ref="link_1">{{link_1}}</a> </td></tr></table></td></tr><tr><td><table width="100%" cellpadding="0" cellspacing="50px" border="0" bgcolor="#e3e7ee" align="center"><tr><td align="center" width="50%"><img style="width:80%;" src="{{image_2}}" alt="Company Logo"></td><td align="left" width="50%"> <p>{{p_2}}</p> <a href="">{{link_2}}</a></td></tr></table></td></tr><tr><td><table width="100%" cellpadding="0" cellspacing="50px" border="0" bgcolor="#fff" align="center"><tr><td align="left" width="50%"> <p>{{p_3}}</p> <a href="">{{link_3}}</a></td><td align="center" width="50%"><img style="width:80%;" src="{{image_3}}" alt="Company Logo"></td></tr></table></td></tr><tr><td><table width="100%" cellpadding="0" cellspacing="50px" border="0" bgcolor="#007BFF" align="center"><tr><td align="center"><a href=""> <img style="width:30px;" src="{{image_4}}" alt="Company Logo"></a><a href=""> <img style="width:30px;" src="{{image_5}}" alt="Company Logo"></a><a href=""> <img style="width:30px;" src="{{image_6}}" alt="Company Logo"></a><a href=""> <img style="width:30px;" src="{{image_7}}" alt="Company Logo"></a></td></tr></table></td></tr></table></td></tr></table>',
+        html: '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td><img src="https://placehold.co/100x50" alt="Company Logo"></td></tr><tr><td><table  width="100%" cellpadding="10px" cellspacing="0" border="0" bgcolor="#ffffff" align="center"><tr><td align="center"> <img style="width:50%;" ref="image_1" id="{{id_image_1}}" src="{{image_1}}" alt="Company Logo"></td></tr><tr><td align="center" width="50%">  <p ref="p_1">{{p_1}}</p> </td></tr><tr><td align="center"> <a href="" ref="link_1">{{link_1}}</a> </td></tr></table></td></tr><tr><td><table width="100%" cellpadding="0" cellspacing="50px" border="0" bgcolor="#e3e7ee" align="center"><tr><td align="center" width="50%"><img ref="image_2" style="width:80%;" src="{{image_2}}" alt="Company Logo"></td><td align="left" width="50%"> <p ref="p_2">{{p_2}}</p> <a ref="link_2" href="">{{link_2}}</a></td></tr></table></td></tr><tr><td><table width="100%" cellpadding="0" cellspacing="50px" border="0" bgcolor="#fff" align="center"><tr><td align="left" width="50%"> <p>{{p_3}}</p> <a href="">{{link_3}}</a></td><td align="center" width="50%"><img style="width:80%;" src="{{image_3}}" alt="Company Logo"></td></tr></table></td></tr><tr><td><table width="100%" cellpadding="0" cellspacing="50px" border="0" bgcolor="#007BFF" align="center"><tr><td align="center"><a href=""> <img style="width:30px;" src="{{image_4}}" alt="Company Logo"></a><a href=""> <img style="width:30px;" src="{{image_5}}" alt="Company Logo"></a><a href=""> <img style="width:30px;" src="{{image_6}}" alt="Company Logo"></a><a href=""> <img style="width:30px;" src="{{image_7}}" alt="Company Logo"></a></td></tr></table></td></tr></table></td></tr></table>',
       },
     ],
   },
