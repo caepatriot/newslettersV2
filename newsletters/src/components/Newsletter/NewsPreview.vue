@@ -59,6 +59,7 @@ export default {
       if (extractedElement) {
         // Get the HTML content from the element
         this.extractedHtml = extractedElement.outerHTML;
+        console.log(this.extractedHtml);
       } else {
         this.extractedHtml = 'Element not found.';
       }
