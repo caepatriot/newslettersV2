@@ -1,7 +1,11 @@
 <template>
   <v-container>
     <v-btn v-if="template != null" @click="generateHTML()">Generate HTML</v-btn>
-    <div id="template" v-if="template != null" v-html="customizedTemplate"></div>
+    <div
+      id="template"
+      v-if="template != null"
+      v-html="customizedTemplate"
+    ></div>
   </v-container>
 </template>
 
@@ -11,14 +15,14 @@
   background-color: blue;
 }
 
-#template>>>.selected {
+#template >>> .selected {
   border: 2px solid red;
 }
 </style>
 
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 // import TemplateComponent from './Templates/TemplateComponent.vue';
 
 export default {
@@ -32,10 +36,10 @@ export default {
 
   data: () => ({
     model: null,
-    extractedHtml: ''
+    extractedHtml: "",
   }),
 
-  mounted: () => { },
+  mounted: () => {},
 
   computed: {
     customizedTemplate() {
@@ -45,7 +49,7 @@ export default {
       inputs.forEach((input) => {
         if (input.type == "link") {
           html = html.replace("{{" + `${input.ref}` + "}}", input.title);
-          html = html.replace("href=\"\"", "href=\"" + input.url + "\"");
+          html = html.replace('href=""', 'href="' + input.url + '"');
         } else if (input.type == "area") {
           html = html.replace("{{" + `${input.ref}` + "}}", input.data);
         } else if (input.type == "image") {
@@ -64,40 +68,37 @@ export default {
           this.scrollToInput(newVal.selectedInput);
         }
       },
-      deep: true
+      deep: true,
     },
   },
 
   methods: {
-
     scrollToInput(input) {
-
       var ref = input.ref;
       this.$nextTick(() => {
-
-        const element = document.querySelector('[ref="' + ref + '"]').closest("table");
+        const element = document
+          .querySelector('[ref="' + ref + '"]')
+          .closest("table");
         if (element) {
-          const allelements = document.querySelectorAll('*');
+          const allelements = document.querySelectorAll("*");
           allelements.forEach((element) => {
-            element.classList.remove('selected');
+            element.classList.remove("selected");
           });
-            element.classList.add("selected");
+          element.classList.add("selected");
           // const y = element.getBoundingClientRect().top + window.scrollY + "10px";
           // window.scrollTo({ top: y, behavior: 'smooth' });
           // element.scrollIntoView();
         } else {
-          console.log('Element not found.');
+          console.log("Element not found.");
         }
 
         // if (ref) {
         //   console.log(ref);
         //   console.log(this.$refs);
 
-
         // this.$refs.ref.focus();
         // }
       });
-
 
       // this.$nextTick(() => {
       //   var ref = input.ref;
@@ -123,21 +124,39 @@ export default {
 
       //   // document.getElementById("${targetRef}`").scrollIntoView();
       // }
-
     },
 
     generateHTML() {
       // Replace this with your logic to extract the HTML
       // You can use document.getElementById or other DOM methods to get the desired element
-      const extractedElement = document.getElementById('html-template');
+      const extractedElement = document.getElementById("template");
 
       if (extractedElement) {
         // Get the HTML content from the element
         this.extractedHtml = extractedElement.outerHTML;
         console.log(this.extractedHtml);
       } else {
-        this.extractedHtml = 'Element not found.';
+        this.extractedHtml = "Element not found.";
       }
+
+      const dataToSend = {
+        htmlContent: this.extractedHtml,
+      };
+
+      axios
+        .post("http://localhost:8081/sendmail", dataToSend, {
+          headers: {
+            "Content-Type": "application/json", // Set the content type for the request
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          // Handle the response from the Spring Boot backend
+        })
+        .catch((error) => {
+          console.error(error);
+          // Handle any errors
+        });
     },
   },
 };

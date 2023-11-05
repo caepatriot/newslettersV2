@@ -1,43 +1,64 @@
 <template>
   <v-container>
     <form v-if="template">
-
-      <div v-for="(input) in template.inputs" :key="input.id">
-
+      <div v-for="input in template.inputs" :key="input.id">
         <div v-if="isLinkInput(input)">
           <v-container>
             <v-row>
               <v-col>
-                <v-text-field v-model="input.title" :error-messages="titleErrors" :counter="30" :label="input.label"
-                  required @input="$v.form.title.$touch()" @blur="$v.form.title.$touch()"
-                  @click="highlightInput(input)"></v-text-field>
+                <v-text-field
+                  v-model="input.title"
+                  :error-messages="titleErrors"
+                  :counter="30"
+                  :label="input.label"
+                  required
+                  @input="$v.form.title.$touch()"
+                  @blur="$v.form.title.$touch()"
+                  @click="highlightInput(input)"
+                ></v-text-field>
               </v-col>
               <v-col>
-                <v-text-field v-model="input.url" :error-messages="titleErrors" :counter="30" label="Url" required
-                  @input="$v.form.title.$touch()" @blur="$v.form.title.$touch()"
-                  @click="highlightInput(input)"></v-text-field>
+                <v-text-field
+                  v-model="input.url"
+                  :error-messages="titleErrors"
+                  :counter="30"
+                  label="Url"
+                  required
+                  @input="$v.form.title.$touch()"
+                  @blur="$v.form.title.$touch()"
+                  @click="highlightInput(input)"
+                ></v-text-field>
               </v-col>
             </v-row>
           </v-container>
         </div>
-        <v-textarea v-else-if="isTextArea(input)" v-model="input.data" :error-messages="contentErrors" label="Content"
-          required @input="$v.form.content.$touch()" @blur="$v.form.content.$touch()"
-          @click="highlightInput(input)"></v-textarea>
+        <v-textarea
+          v-else-if="isTextArea(input)"
+          v-model="input.data"
+          :error-messages="contentErrors"
+          label="Content"
+          required
+          @input="$v.form.content.$touch()"
+          @blur="$v.form.content.$touch()"
+          @click="highlightInput(input)"
+        ></v-textarea>
 
         <div v-else-if="isImageInput(input)">
           <v-container>
             <v-row>
               <v-col>
-                <v-file-input @change="onFileChange(input, input.file)" v-model="input.file"
-                  @click="highlightInput(input)"></v-file-input>
+                <v-file-input
+                  @change="onFileChange(input, input.file)"
+                  v-model="input.file"
+                  @click="highlightInput(input)"
+                ></v-file-input>
               </v-col>
               <v-col>
-                <v-slider v-model="input.width" hint="Size" max="100" min="20"></v-slider>
+                <!-- <v-slider v-model="input.width" hint="Size" max="100" min="20"></v-slider> -->
               </v-col>
             </v-row>
           </v-container>
         </div>
-
       </div>
 
       <!-- <v-text-field v-for="input in textInputs" :key="input.id" v-model="input.data" :error-messages="titleErrors"
@@ -47,7 +68,6 @@
         @input="$v.form.content.$touch()" @blur="$v.form.content.$touch()"></v-textarea>
       <v-file-input v-for="(input, index) in imageInputs" :key="input.title" @change="onFileChange(input.file, index)"
         v-model="input.file"></v-file-input> -->
-
 
       <!-- <v-text-field
         v-model="form.title"
@@ -197,7 +217,6 @@ export default {
   },
 
   methods: {
-
     highlightInput(input) {
       this.$emit("selectedInput", input);
     },
@@ -214,9 +233,18 @@ export default {
       return input.type === "image";
     },
 
-
     onFileChange(input, file) {
-      (file != null) ? input.fileUrl = URL.createObjectURL(file) : input.fileUrl = "";
+      file != null
+        ? (input.fileUrl = URL.createObjectURL(file))
+        : (input.fileUrl = "");
+      
+      // let imageSrc = null;
+      // const reader = new FileReader();
+      // reader.onload = (event) => {
+      //   imageSrc = event.target.result;
+      //   console.log(imageSrc);
+      // };
+      // reader.readAsDataURL(file);
     },
 
     extractInputsFromHtml(template) {
